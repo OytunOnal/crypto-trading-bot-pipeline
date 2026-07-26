@@ -344,7 +344,7 @@ def main():
                     nt = sum(len(v) for v in res.values())
                     print(f'  {code}:{direction[0]}_{cell:<10} -> {len(res)} cfg '
                           f'{nt:,} trade [{done_n}/{total}] '
-                          f'({(time.time()-t0)/60:.0f}dk)', flush=True)
+                          f'({(time.time()-t0)/60:.0f}min)', flush=True)
         except BrokenProcessPool:
             broke = True
             for m, tid in running.values():
@@ -383,7 +383,7 @@ def main():
             print(f'    {cell}_{yr}: {len(ct)} cfg, {nt:,} trade '
                   f'({op.stat().st_size/1e6:.1f}MB)', flush=True)
             nf += 1
-    print(f'\n  DONE: {nf} dosya ({(time.time()-t0)/60:.1f}dk) — tmp: {TMP}', flush=True)
+    print(f'\n  DONE: {nf} files ({(time.time()-t0)/60:.1f}min) — tmp: {TMP}', flush=True)
 
 
 if __name__ == '__main__':

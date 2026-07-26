@@ -438,7 +438,7 @@ def build_all(strategy_codes, months, max_workers=None):
     tasks = [(c, ym) for c in strategy_codes for ym in months]
     n_workers = max_workers or max(1, (os.cpu_count() or 8) - 2)
     print(f'  MONTHLY BUILD ALL: {len(strategy_codes)} strategies x '
-          f'{len(months)} ay = {len(tasks)} gorev, {n_workers} worker', flush=True)
+          f'{len(months)} months = {len(tasks)} tasks, {n_workers} workers', flush=True)
     remaining = {c: len(months) for c in strategy_codes}
     n_err = 0
     ctx = None
@@ -464,9 +464,9 @@ def build_all(strategy_codes, months, max_workers=None):
                 yrs = sorted(set(int(ym[:4]) for ym in months))
                 _save_meta(cf, yrs, ctx['btc_trend_5m_arr'],
                            ctx['btc_mom_5m_arr'], ctx['btc_5m_idx'])
-                print(f'  == {code} TAMAM, meta yazildi ==', flush=True)
-    print(f'  ALL DONE: {len(tasks)} gorev, {n_err} hata '
-          f'({(time.time()-t0)/3600:.1f} saat)', flush=True)
+                print(f'  == {code} DONE, meta written ==', flush=True)
+    print(f'  ALL DONE: {len(tasks)} tasks, {n_err} errors '
+          f'({(time.time()-t0)/3600:.1f}h)', flush=True)
 
 
 def main():

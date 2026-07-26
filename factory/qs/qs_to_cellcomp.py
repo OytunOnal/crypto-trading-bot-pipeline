@@ -385,8 +385,8 @@ def main():
             broke = True
             for m, tid in running.values():   # in-flight -> requeue
                 pending.appendleft(m)
-            print(f'  !! POOL OLDU — {len(running)} gorev yeniden kuyruga, '
-                  f'havuz yeniden kuruluyor', flush=True)
+            print(f'  !! POOL DIED — {len(running)} tasks requeued, '
+                  f'pool rebuilt', flush=True)
         finally:
             ex.shutdown(wait=False, cancel_futures=True)
             mgr.shutdown()

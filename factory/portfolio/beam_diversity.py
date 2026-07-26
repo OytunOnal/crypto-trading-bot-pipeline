@@ -12,7 +12,7 @@ OFF by default (enable with TM_DIV_QUOTA=1; built for A/B arm testing).
 import os
 import numpy as np
 
-DOM = 0.60   # bir profili 'baskin' saymak icin pay esigi
+DOM = 0.60   # share threshold for calling a profile 'dominant'
 # TM_DIV_NODD=1 (ablation flag): drop the DD-tercile axis from the bucket
 # key — outcome-profile spreading is the weakest axis (it does not
 # decorrelate causes); the ablation measures whether it earns its place.
