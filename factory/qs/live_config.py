@@ -37,27 +37,27 @@ CELL_CONFIG = {
     ('LONG', 'BULL_MED', 'sma_x'): {
         'gate': [('rsi_14_1h', '>', 45.0), ('atr_pct_1h', '<', 0.02)],
         'block': [('vol_zscore_20_15m', '>', 4.0)],
-        'qs_key': 'LONG_BULL_MED_SMA_X_q3_c0',
+        'qs_key': 'LONG_BULL_MED_SMA_X_q3_c0', 'q': 3, 'sl': 2.0, 'tp': 2.5,
     },
     ('SHORT', 'BEAR_MED', 'sma_x'): {
         'gate': [('rsi_14_1h', '<', 55.0)],
         'block': [],
-        'qs_key': 'SHORT_BEAR_MED_SMA_X_q3_c0',
+        'qs_key': 'SHORT_BEAR_MED_SMA_X_q3_c0', 'q': 3, 'sl': 2.5, 'tp': 2.5,
     },
     ('LONG', 'FLAT_LOW', 'rsi_mr'): {
         'gate': [('bb_pct_b_15m', '<', 0.2)],
         'block': [('atr_pct_4h', '>', 0.03)],
-        'qs_key': 'LONG_FLAT_LOW_RSI_MR_q4_c0',
+        'qs_key': 'LONG_FLAT_LOW_RSI_MR_q4_c0', 'q': 4, 'sl': 1.5, 'tp': 2.0,
     },
     ('SHORT', 'FLAT_HIGH', 'rsi_mr'): {
         'gate': [('bb_pct_b_15m', '>', 0.8)],
         'block': [],
-        'qs_key': 'SHORT_FLAT_HIGH_RSI_MR_q4_c0',
+        'qs_key': 'SHORT_FLAT_HIGH_RSI_MR_q4_c0', 'q': 4, 'sl': 1.5, 'tp': 2.0,
     },
     ('LONG', 'BULL_HIGH', 'ch_brk'): {
         'gate': [('vol_zscore_20_1h', '>', 0.5)],
         'block': [],
-        'qs_key': 'LONG_BULL_HIGH_CH_BRK_q2_c0',
+        'qs_key': 'LONG_BULL_HIGH_CH_BRK_q2_c0', 'q': 2, 'sl': 3.0, 'tp': 4.0,
     },
 }
 
