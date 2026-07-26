@@ -56,7 +56,7 @@ n_before_window_orig = int((seed['entry_time'] < win_epoch).sum())
 featcol = next(c for c in seed.columns if c not in
                ('direction', 'cell', 'signal', 'entry_time', 'pnl_pct', 'coin'))
 drift = {c: np.nan for c in seed.columns}
-drift.update({'direction': 'SHORT', 'cell': 'BEAR_MED', 'signal': 'hhhl',
+drift.update({'direction': 'SHORT', 'cell': 'BEAR_MED', 'signal': 'sma_x',
               'coin': 'DRIFTTEST', 'entry_time': (win_start + pd.Timedelta(hours=6)).value / 1e9,
               'pnl_pct': np.nan, featcol: -999.0})
 sentinel = {c: np.nan for c in seed.columns}

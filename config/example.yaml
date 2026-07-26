@@ -1,0 +1,51 @@
+# EXAMPLE configuration values — every number here is illustrative.
+# Production systems calibrate these; the code marks each consumption site.
+
+data:
+  years: [2021, 2022, 2023, 2024, 2025, 2026]
+  download_workers: 3
+  overlap_hours: 24          # trailing re-fetch + content-diff window
+  stale_hours: 2.0
+  gap_tolerance_min: 5.0
+
+gates:
+  ic_min: 0.010
+  sign_stability_min: 2      # of 5 years (QS stage tightens to 4)
+  corr_threshold: 0.60
+  k_range: [3, 8]
+  min_year_trades: 1000
+  sl_levels: [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]
+
+blocks:
+  max_independent: 15
+  max_k: 10
+  block_percentiles: [1, 2, 3, 5, 95, 97, 98, 99]
+
+qs:
+  n_roll: 100
+  sign_stability_min: 4      # of 5 years
+  wf_min_pass: 2             # of 3, in EACH direction
+  min_lift: 0.01
+  splits: [2, 3, 4, 5]
+
+portfolio:
+  budgets: [10.0, 15.0, 20.0]    # DD budgets for the round-robin merge
+  lev_cap: 10.0
+  style_cap_frac: 0.67
+  cell_top_n: 40
+  max_active_per_dir: 4
+
+deploy:
+  levs: [5, 6, 7, 8, 9, 10]
+  cycs: [15, 20, 25]
+  # caution ladders: [(dd_threshold, pos_mult), ...] — see deploy_sweep.py
+  dd_cap: 20.0               # consensus gate (retired under fixed-knob mode)
+  nw26_max: 1                # graded relaxation: 1 -> 2 -> 3
+
+walkforward:
+  oos_trailing_weeks: 26     # uniform blind-OOS boundary
+  judge_quarters: ["golden", "storm", "middling"]   # pick a DIVERSE set
+
+risk:
+  min_coin_age_days: 365
+  fee_roundtrip: 0.0008

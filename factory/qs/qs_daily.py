@@ -104,7 +104,7 @@ def run_daily_qs_refresh(kline_cache, persist_path: str = QS_PERSIST_PATH,
     removed = kline_cache.trim_to(CACHE_BARS, floor_bars=QS_WARMUP_FLOOR_BARS)
 
     # Daily cache-health log: surface any internal gaps (downtime) that would
-    # shift long-window signals (SuperTrend) off the backtest. Best-effort.
+    # shift long-window signals off the backtest. Best-effort.
     try:
         if hasattr(kline_cache, 'cache_health'):
             kline_cache.cache_health('5m')

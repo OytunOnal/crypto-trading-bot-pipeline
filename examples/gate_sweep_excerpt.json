@@ -1,0 +1,14 @@
+{
+  "SHORT_BEAR_MED": [
+    {
+      "direction": "SHORT", "cell": "BEAR_MED", "sl": 2.5, "tp": 2.5,
+      "verdict": "STRONG", "wr": 58.4, "ev": 0.213, "n": 41230,
+      "worst_yr_ev": 0.071, "worst_yr_wr": 54.2, "fwd": 3, "rev": 3,
+      "gates": [
+        {"name": "rsi_14_1h", "direction": "lt", "pct": 60, "value": 55.31},
+        {"name": "atr_pct_4h", "direction": "gt", "pct": 30, "value": 0.0064},
+        {"name": "vol_zscore_20_15m", "direction": "gt", "pct": 40, "value": -0.22}
+      ]
+    }
+  ]
+}

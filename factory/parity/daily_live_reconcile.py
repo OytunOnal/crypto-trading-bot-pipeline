@@ -6,7 +6,7 @@ _fast). Catches any live/backtest divergence (signal, gate, universe, ordering) 
 unit tests can't -- the reference is recomputed independently, not a stored artifact.
 
 Also reports per-signal opened-count drift (live vs replica gate-passed pool); a large
-shift (e.g. the coin-major QS bug: live HHHL 95 vs backtest 39) flags here.
+shift (e.g. the coin-major QS bug: live pool 95 vs backtest 39) flags here.
 
 Live trades CSV (one row per opened trade):
     symbol,position_type,entry_time(ISO),cell,signal,config_key
@@ -210,8 +210,8 @@ def main():
                 # the same (strat,q,ci) index exists in several cells and its trades all
                 # merge (last-wins) into ONE cell file. So this deployed-cell bucket also
                 # holds OTHER cells' trades -> require t['cell']==cell so bt_qs counts only
-                # trades the live bot would actually fire in THIS cell. (Without it, 07-02
-                # BULL_MED S:HURST_q2_c0 showed 50 phantom FLAT_HIGH trades -> bt_qs 98 vs
+                # trades the live bot would actually fire in THIS cell. (Without it, one
+                # config once showed 50 phantom other-cell trades -> bt_qs 98 vs
                 # live 49; with it, 48 ~= 49.)
                 # restrict backtest to the live WHITELIST universe (pickles span the
                 # full 12mo+ backtest universe; the live only trades coin_whitelist.txt,

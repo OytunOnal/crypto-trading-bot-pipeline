@@ -1,0 +1,5 @@
+PWF JUDGE: B12+F7+BU4 lev6 8/15/22D cyc25
+window [2025-07-01, 2025-10-01)
+trade-level: n=11,842 total +18455% EV/tr +1.559 WR 77.9%
+sim booking: window-net $12,384  window-DD 13.6%
+full-stream reference: Net $341,209 DD 41.8%

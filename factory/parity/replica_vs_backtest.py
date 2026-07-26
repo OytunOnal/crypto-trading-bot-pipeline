@@ -33,15 +33,7 @@ PICKLE_DIR = Path(__file__).resolve().parents[1] / 'trade_pickles'
 from factory.qs.live_features import compute_all_features, merge_config_needs
 from factory.qs.regime_gate import (
     BtcTrendTracker, BtcMomentumTracker,
-    check_cell_gate, check_block_gate,
-    compute_fisher_signal, compute_td_signal, compute_stoch_cross_signal,
-    compute_ichi_signal, compute_atr_signal, compute_vol_signal, compute_bb_signal,
-    compute_zscore_signal, compute_adx_signal, compute_rsi_vol_signal,
-    compute_ema_ac_signal, compute_roc_signal, compute_swing_signal,
-    compute_vol_e_signal, compute_cvd_d_signal, compute_hhhl_signal,
-    compute_ema_a_signal, compute_hurst_signal,
-    compute_donch_signal, compute_vwap_d_signal, compute_vol_brk_signal,
-    compute_rsi_d_signal,
+    check_cell_gate, check_block_gate, SIGNAL_FUNCS,
 )
 from factory.qs.live_config import (
     CELL_CONFIG, MIN_COIN_BARS, needed_signals_for_regime, configs_for_regime,
@@ -58,31 +50,11 @@ FEAT_BARS = 1200   # feature window (converged; mirrors brain)
 # Single source — same registry the live brain uses
 from factory.qs.regime_gate import SIGNAL_FUNCS
 
-# signal -> cache directory + file prefix (verified against actual files)
+# signal -> cache directory + file prefix (toy set)
 SIG_CACHE = {
-    'rsi_d': ('contrarian_strategy/rsi_divergence', 'rsi_divergence'),
-    'vol_e': ('contrarian_strategy/volume_exhaustion', 'volume_exhaustion'),
-    'cvd_d': ('contrarian_strategy/cvd_divergence', 'cvd_divergence'),
-    'zscore': ('mean_reversion_strategy/zscore', 'zscore'),
-    'rsi_vol': ('mean_reversion_strategy/rsi_vol_capitulation', 'rsi_vol'),
-    'vwap_d': ('mean_reversion_strategy/vwap_vol_delta', 'vwap_delta'),
-    'adx': ('momentum_strategy/adx_trend', 'adx_trend'),
-    'ema_ac': ('momentum_strategy/ema_cross_autocorr', 'ema_autocorr'),
-    'roc': ('momentum_strategy/roc_reversal', 'roc_reversal'),
-    'fisher': ('reversal_strategy/btc_mom_fisher', 'btc_mom_fisher'),
-    'td': ('reversal_strategy/btc_mom_td7', 'btc_mom_td7'),
-    'stoch': ('reversal_strategy/stoch_cross', 'stoch_cross'),
-    'ichi': ('breakout_strategy/ichimoku_breakout', 'ichimoku'),
-    'atr': ('breakout_strategy/atr_expansion', 'atr_expansion'),
-    'vol': ('breakout_strategy/volume_breakout', 'breakout'),
-    'bb': ('breakout_strategy/bb_squeeze', 'squeeze'),
-    'vol_brk': ('breakout_strategy/volume_breakout', 'breakout'),
-    'donch': ('stop_hunt_strategy/donchian_reversal', 'donchian'),
-    'swing': ('stop_hunt_strategy/swing_failure', 'swing_failure'),
-    'hhhl': ('trend_following_strategy/hh_hl_trend', 'hh_hl_trend'),
-    'ema_a': ('trend_following_strategy/ema_alignment', 'ema_alignment'),
-    'hurst': ('trend_following_strategy/hurst_trend', 'hurst_trend'),
-    'suptr': ('trend_following_strategy/supertrend', 'supertrend'),
+    'sma_x': ('momentum_sma_cross', 'sma_cross'),
+    'rsi_mr': ('meanrev_rsi', 'rsi_mr'),
+    'ch_brk': ('breakout_channel', 'channel_brk'),
 }
 
 

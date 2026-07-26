@@ -1,0 +1,7 @@
+{
+  "LONG_BULL_MED_SMA_X_q3_c0": {"features": ["roc_10_1h", "vol_zscore_20_15m"], "ic": {"roc_10_1h": 0.031, "vol_zscore_20_15m": -0.018}, "sl": 2.0, "tp": 2.5},
+  "SHORT_BEAR_MED_SMA_X_q3_c0": {"features": ["roc_10_1h", "bb_pct_b_4h"], "ic": {"roc_10_1h": -0.027, "bb_pct_b_4h": 0.022}, "sl": 2.5, "tp": 2.5},
+  "LONG_FLAT_LOW_RSI_MR_q4_c0": {"features": ["atr_pct_1h", "ema20_slope_4h"], "ic": {"atr_pct_1h": -0.024, "ema20_slope_4h": 0.019}, "sl": 1.5, "tp": 2.0},
+  "SHORT_FLAT_HIGH_RSI_MR_q4_c0": {"features": ["atr_pct_1h", "roc_10_15m"], "ic": {"atr_pct_1h": 0.02, "roc_10_15m": 0.017}, "sl": 1.5, "tp": 2.0},
+  "LONG_BULL_HIGH_CH_BRK_q2_c0": {"features": ["vol_zscore_20_1h", "roc_10_4h"], "ic": {"vol_zscore_20_1h": 0.029, "roc_10_4h": 0.015}, "sl": 3.0, "tp": 4.0}
+}
