@@ -437,7 +437,7 @@ def build_all(strategy_codes, months, max_workers=None):
     t0 = time.time()
     tasks = [(c, ym) for c in strategy_codes for ym in months]
     n_workers = max_workers or max(1, (os.cpu_count() or 8) - 2)
-    print(f'  MONTHLY BUILD ALL: {len(strategy_codes)} strateji x '
+    print(f'  MONTHLY BUILD ALL: {len(strategy_codes)} strategies x '
           f'{len(months)} ay = {len(tasks)} gorev, {n_workers} worker', flush=True)
     remaining = {c: len(months) for c in strategy_codes}
     n_err = 0
@@ -450,7 +450,7 @@ def build_all(strategy_codes, months, max_workers=None):
             done += 1
             if err:
                 n_err += 1
-                print(f'  [{code} {ym}] HATA: {err}', flush=True)
+                print(f'  [{code} {ym}] ERROR: {err}', flush=True)
             elif done % 25 == 0 or remaining[code] == 1:
                 el = time.time() - t0
                 eta = el / done * (len(tasks) - done)
