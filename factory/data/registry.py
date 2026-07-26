@@ -13,7 +13,7 @@ strategy set lives (one row per substrategy variant).
 """
 from pathlib import Path
 
-BACKTEST = Path(__file__).resolve().parent.parent
+BACKTEST = Path(__file__).resolve().parents[2]   # repo root
 
 # code -> (builder module path relative to repo root, live signal name, category)
 STRATEGIES = {
