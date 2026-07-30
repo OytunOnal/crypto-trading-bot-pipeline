@@ -98,3 +98,72 @@ nondeterminism (hash randomization) is sorted away before any capital cap can
 bind. With that discipline the incremental live scorer reproduces the batch
 scorer **row-for-row** (`factory/parity/verify_qs_math.py`) and live trades
 are a strict subset of backtest trades.
+
+## 8. The sharpest finding: the "edge" was a search artifact, and the pipeline proved it
+
+For months the tournament measured *menu mechanisms* (a composition-quota arm
+won on tail-DD), while forward 2026 windows returned ~zero EV — explained away
+as "the storm regime is eating it." One question broke that story open: **were
+the configs simply overfit?** Four measurements, each run with the tooling in
+this repo, answered it.
+
+**a. The regime defense collapsed (regime-conditional test).** We split every
+day into storm vs. calm (a pre-registered volatility tercile) and re-scored
+thousands of frozen configs across 22 strategies:
+
+| | in-sample (2021–25) | out-of-sample (2026) |
+|---|---|---|
+| calm days | **+0.40** | **+0.04** |
+| storm days | **+0.67** | **−0.02** |
+
+The configs carried no edge in 2026 even on *calm* days (retention ~0.10,
+far under the pre-registered 0.5 bar). "The storm ate it" was dead — the
+problem wasn't the regime.
+
+**b. The entire edge lived in the gate layer, and that layer had died
+(decomposition).** Scoring each config with and without its gate/block layer
+(`gated = raw + gate_lift`) showed the raw signals were *never* the edge —
+even in-sample they sat at ~+0.03–0.09. **~94% of the system's in-sample edge
+was lift from gate/block selection** (+0.37–0.58). In 2026 that lift
+evaporated ~91% and turned *negative* on storm days: the gates were now
+*removing* value from the raw signal.
+
+**c. The cliff wasn't the storm — it was the data boundary (monthly
+timeline).** Lift month by month: the final in-sample months read healthy
+(+0.24 / +0.46 / +0.30), then **+0.30 in the last training month → −0.04 the
+month after**. The collapse landed *before* the February storm — exactly where
+the gates' training data ended. The world didn't change on Jan 1; the dataset
+boundary did.
+
+**d. The decisive test: shift the boundary, and the cliff follows
+(nested-boundary experiment).** To rule out "maybe 2026 really is a different
+world," we re-ran the gate/block search **from scratch on ≤2024 data only** and
+measured 2025 as a genuinely unseen period. In-sample 2024 lift climbed
++0.27 → **+0.88, peaking in the final month** — the textbook signature of
+overfitting. Then: 2025-01 +0.23 → 2025-02 −0.02 → ~zero/negative after. We
+pulled the fit boundary back a year, and the cliff moved back with it.
+
+Two independent experiments, two different boundaries, two collapses — each
+landing just past the training cutoff. This is not a market shift; it is a
+**selection artifact manufactured by the search-and-validation procedure
+itself**. The existing FWD/REV walk-forward folds don't protect against it,
+because the *selection* still scans those years — validation-in-selection.
+
+## What this all adds up to
+
+The methodology in this repo is sound and the earlier findings hold — but
+turned on its own output, the honest verdict is blunt:
+
+- **This config/gate layer has no durable forward edge.** The strength seen
+  in-sample is an artifact that decays within ~1–2 months past the training
+  boundary.
+- **Rolling-refit is not the fix.** Every fresh fit reproduces the same cliff
+  at *its* own boundary.
+- **The earlier findings remain valid but relative.** Diversity really does
+  cut tail-DD, abstain really is the right default — but on top of a
+  roughly-zero-edge base, not a real one.
+- **The point of the harness was exactly this.** It was built to answer "how
+  do you select trading configurations without fooling yourself?" — and its
+  most valuable output turned out to be catching that we *had* fooled
+  ourselves, before the illusion reached live capital. Sometimes the most
+  valuable thing a validation system can tell you is *don't trust this.*

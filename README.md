@@ -34,6 +34,12 @@ The honest answers we converged on (measured, not assumed — see
 - **Menu diversity cuts tail drawdown** — confirmed by three independent
   mechanisms (jackknife ranking, composition quotas, co-crash penalties)
   converging on the same storm-quarter improvement in two different regimes.
+- **The apparent edge can be an artifact of the search itself.** Two
+  boundary-shift experiments proved a config layer's edge died *exactly* at
+  the training-data cutoff — a selection artifact, not a market regime. The
+  harness was built to catch precisely this before it reaches live capital,
+  and it did. This is the sharpest finding in the case study, and the clearest
+  argument for why the validation half is the half that matters.
 
 ## Pipeline at a glance
 
