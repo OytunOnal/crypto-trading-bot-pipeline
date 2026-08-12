@@ -54,6 +54,11 @@ The honest answers we converged on (measured, not assumed — see
   advance (5/5): rebuild effort only pays where the stack has nothing to
   work with.
 
+All of it compresses to one sentence — the project's final takeaway:
+
+> **Coarse filters work but don't clear the bar; fine filters clear the bar
+> but don't survive it.**
+
 ## Pipeline at a glance
 
 ```

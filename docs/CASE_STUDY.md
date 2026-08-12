@@ -1,5 +1,12 @@
 # Case study: what blind walk-forward testing taught us
 
+> **Coarse filters work but don't clear the bar; fine filters clear the bar
+> but don't survive it.** Eight months of measurement, one sentence. The
+> data holds ~3–4 independent regime samples: the statistical resolution a
+> fine filter needs is below what that sample can support, and the
+> resolution a coarse filter can honestly support doesn't clear the
+> cost-adjusted profitability bar. Everything below is the long version.
+
 Findings from running this pipeline's validation harness against a live
 production system. Numbers are anonymized/rounded; the *methods* are the
 point. Every claim below was measured with the tooling in this repo — none
