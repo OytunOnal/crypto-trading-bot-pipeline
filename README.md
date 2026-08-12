@@ -17,7 +17,7 @@ with clearly-marked toy examples; **everything else is the real machinery.**
 
 Most public trading-bot repos show a strategy. Almost none show the part that
 actually decides whether a system survives: **the validation infrastructure**.
-This repo is that part — the product of ~7 months and 300+ commits of iterating
+This repo is that part — the product of ~8 months and 300+ commits of iterating
 on one question: *how do you select trading configurations without fooling
 yourself?*
 
@@ -38,8 +38,21 @@ The honest answers we converged on (measured, not assumed — see
   boundary-shift experiments proved a config layer's edge died *exactly* at
   the training-data cutoff — a selection artifact, not a market regime. The
   harness was built to catch precisely this before it reaches live capital,
-  and it did. This is the sharpest finding in the case study, and the clearest
-  argument for why the validation half is the half that matters.
+  and it did.
+- **The selection stack is the edge; signals are raw material.** Even
+  *winning* redesigned signal bases were raw-negative on held-out data —
+  every point of forward value was created by the gate/jury/floor layers.
+  Raw signal EV, the number every public backtest advertises, predicted
+  nothing.
+- **One clean holdout year is not enough.** Five base redesigns passed a
+  never-scanned holdout year *plus* hidden-coin and half-year robustness
+  batteries; a second independent year kept one of five. Batteries are
+  built from fitting data and cannot suppress selection-to-the-judge —
+  two independent judge years is the minimum honest bar.
+- **Challengers only beat weak incumbents.** Ranking all units by how much
+  the validation stack already extracts predicted every redesign verdict in
+  advance (5/5): rebuild effort only pays where the stack has nothing to
+  work with.
 
 ## Pipeline at a glance
 
@@ -98,9 +111,17 @@ end-to-end demo run. Read it as you would an architecture review: start at
 [docs/STAGES.md](docs/STAGES.md), then dive into the stage that interests you
 — the code is heavily commented with the *why*, not just the *what*.
 
+**Project status (2026-08): paused, live bot stopped — deliberately.** After
+the search-artifact finding and a final signal-base rebuild campaign (case
+study, chapters 8–9), the honest tally was: one durable improvement, many
+well-earned rejections, and no layer left where in-sample strength survived
+an independent judge. We stopped pushing rather than lowering the bar. The
+machinery is exactly as valuable as before — arguably more, since its main
+product turned out to be *verified no's*.
+
 ## A short history
 
-Seven months, 300+ commits, one live system:
+Eight months, 300+ commits, one live system:
 
 - **Month 1–2** — multi-strategy bot skeleton, first Docker deploy, live QS
   history plumbing.
@@ -114,6 +135,13 @@ Seven months, 300+ commits, one live system:
   reconcile), full rebuild, deploy, live.
 - **Month 6–7** — 8-variant consensus, blind walk-forward harness, A/B arm
   tournament — and most of the findings in the case study.
+- **Month 8** — the boundary-shift experiments (the edge was a search
+  artifact), then a final strategy-by-strategy signal-base rebuild: mechanism
+  inventories, time-scaled cross-scans, design races, Pareto-frontier
+  candidate selection — judged by a clean year, then re-judged by a second
+  independent year. One of five survivors carried; the bot was stopped and
+  the project paused with its ledger clean and a reserve of unseen data
+  intact.
 
 ## License
 

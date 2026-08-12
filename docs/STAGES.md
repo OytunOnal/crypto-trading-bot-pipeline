@@ -107,3 +107,40 @@ so any stage can be re-run, resumed, or A/B-forked in isolation.
   trades, and the daily QS-history refresh reproduces the expected stream.
 - `replica_vs_backtest.py` — full replica harness: re-run the live decision
   path over a window and diff it against the backtest.
+
+## Stage 9 — The second-generation selection stack (docs-only)
+
+The stages above describe the architecture as deployed. In the final two
+months the *selection* half (stages 2–4) was rebuilt into a leaner stack —
+documented here at design level because it produced the case-study
+chapter-9 results; the code is not included in this repo:
+
+- **Unified gate** replaces the per-strategy gate sweep: a small closed
+  ruleset of feature-condition pairs, scored not by mean lift but by
+  **worst fitting-year lift** — a condition must help in its worst year to
+  count. This single change removed a whole class of year-flipping gates.
+- **Feature-family jury** replaces block rules: ~11 feature families each
+  vote a per-trade score from the fitting window; the sum is a single jury
+  score per trade. No trained model, no interactions to overfit — each
+  family's contribution is a monotone bucket lift, capped.
+- **Flow-tiered quantile floor** replaces fixed QS thresholds: the jury-score
+  cut is a quantile chosen by the unit's trigger flow (rich flow → deep cut,
+  scarce flow → shallow cut), so thin-flow units aren't strangled and
+  rich-flow units aren't under-filtered. A unit that cannot support a gate
+  at all is rejected — flow adequacy is a first-class acceptance criterion.
+- **Delta-sizing as fixed policy**: a per-trade size weight (0.25–1.75×)
+  from a score-distance formula frozen at fit time — sizing conditions on
+  the signal, never re-optimized against outcomes (the "optimizers strip
+  insurance" lesson, applied).
+- **Capital-sim arbiter**: candidate menus are judged in a nominal-capital
+  simulation with fixed risk policy (drawdown-laddered caution multipliers,
+  margin caps, per-coin position limits, exact per-trade durations walked
+  from klines) — monthly equity series, not trade averages, are what get
+  compared.
+- **Diversity by budget-merge**: the portfolio menu is filled round-robin
+  from drawdown-diverse pools rather than by sorting one score — the
+  "menu diversity cuts tail DD" finding, promoted from post-hoc check to
+  selection mechanism.
+
+Everything in chapter 9 of the case study — including the two-judge-year
+verdict — was measured through this stack.

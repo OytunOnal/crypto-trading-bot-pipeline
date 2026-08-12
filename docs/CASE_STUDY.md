@@ -149,7 +149,49 @@ landing just past the training cutoff. This is not a market shift; it is a
 itself**. The existing FWD/REV walk-forward folds don't protect against it,
 because the *selection* still scans those years — validation-in-selection.
 
-## What this all adds up to
+## 9. The last campaign: rebuilding the signal bases
+
+After finding 8, one layer had never been seriously questioned: the **signal
+bases themselves** — the ~22 trigger designs everything downstream selects
+from, most of them years-old defaults with accidentally tiny windows (one
+"channel" was 50 minutes long because a timeframe scaling had been forgotten;
+a "divergence lookback" was 45 minutes). If any honest edge was left to find,
+it should be here. So we ran one final, maximally disciplined campaign:
+strategy by strategy, a full mechanism inventory (question every inherited
+constant), time-scaled cross-scans, design races between hand-built trigger
+variants, and an acceptance bar calibrated not to raw EV but to **what the
+incumbent's full validation stack already extracts** — because that, not the
+raw signal, is the thing a challenger must beat. (The rebuilt selection
+stack these campaigns ran through — unified worst-year gate, feature-family
+jury, flow-tiered floor, capital-sim arbiter — is described at design level
+in [STAGES.md](STAGES.md), stage 9.)
+
+What we measured, in order of increasing discomfort:
+
+- **Challengers only ever beat weak incumbents.** A one-table triage —
+  ranking all 44 direction-units by how much the validation stack extracts
+  from each — predicted every verdict in advance (5/5). Where the stack
+  already turned bland raw flow into a strong selected slice, no redesigned
+  trigger could beat it; where the stack had nothing to work with, redesigns
+  won easily.
+- **The stack is the edge; bases are raw material.** A side measurement we
+  almost didn't run: even the *winning* redesigned bases were **raw-negative**
+  in the held-out year before selection. Every point of forward value was
+  created by the gate/jury/floor layers. Raw signal EV — the number every
+  public backtest advertises — told us nothing about anything.
+- **One clean holdout year is not enough.** Five redesigns beat their
+  incumbents on a clean, never-scanned year, after passing hidden-coin and
+  half-year robustness batteries. Then a second, fully independent year
+  judged them: **one of five carried.** The batteries were powerless to
+  predict this — in one strategy family a candidate with a near-perfect
+  battery (5/5 coin groups, 5/6 half-years) couldn't even sustain a gate
+  out-of-sample, while its battery-passing sibling lost 1.25%/trade in the
+  clean year — because batteries, however clever, are still built from the
+  fitting data.
+  Selection-to-the-judge is real, and it survives everything except a second
+  judge the search has never met.
+
+## What this all adds up to — and where it ended
 
 The methodology in this repo is sound and the earlier findings hold — but
 turned on its own output, the honest verdict is blunt:
@@ -162,8 +204,22 @@ turned on its own output, the honest verdict is blunt:
 - **The earlier findings remain valid but relative.** Diversity really does
   cut tail-DD, abstain really is the right default — but on top of a
   roughly-zero-edge base, not a real one.
-- **The point of the harness was exactly this.** It was built to answer "how
-  do you select trading configurations without fooling yourself?" — and its
-  most valuable output turned out to be catching that we *had* fooled
-  ourselves, before the illusion reached live capital. Sometimes the most
-  valuable thing a validation system can tell you is *don't trust this.*
+- **The base-rebuild campaign confirmed the pattern from the other side.**
+  Eight strategy passes, run with every anti-overfit discipline we had,
+  produced exactly one durable improvement — and its durability claim rests
+  on two independent years instead of one, which is now the minimum bar we
+  would accept for anything.
+
+So this is where the project landed, and we are saying it plainly rather than
+quietly rebranding: **the live bot is stopped and the project is paused.**
+Not because the machinery failed — because it worked. It was built to answer
+"how do you select trading configurations without fooling yourself?", and
+after eight months its most consistent, best-replicated answer was *you were
+fooling yourself* — delivered before the illusion reached live capital, at
+every layer we pointed it at. A final untouched reserve of data remains
+unspent, banked for whichever future attempt earns the right to spend it.
+
+If you take one thing from this repo, take the shape of that answer: build
+the half that can tell you *no*. Ours paid for itself entirely in prevented
+losses — which is a strange kind of profit, but it is the only kind this
+system ever reliably produced.
