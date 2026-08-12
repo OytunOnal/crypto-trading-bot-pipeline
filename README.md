@@ -1,11 +1,12 @@
 # crypto-trading-bot-pipeline
 
 **A production-grade strategy factory for crypto trading — shared as a reference
-architecture.** This is the full engineering pipeline behind a live multi-strategy
-Binance futures bot: data ingestion → feature/gate search → validation → portfolio
-assembly → blind walk-forward testing → live/backtest parity. The proprietary parts
-(strategy signals, feature battery, scoring constants, deployed configs) are replaced
-with clearly-marked toy examples; **everything else is the real machinery.**
+architecture.** This is the full engineering pipeline behind a multi-strategy
+Binance futures bot that ran live: data ingestion → feature/gate search → validation
+→ portfolio assembly → blind walk-forward testing → live/backtest parity. The
+proprietary parts (strategy signals, feature battery, scoring constants, deployed
+configs) are replaced with clearly-marked toy examples; **everything else is the
+real machinery.**
 
 > **Bring your own alpha.** The pipeline never needs to know what your strategies
 > are. Register a strategy, extend the feature battery, plug your scoring formula
@@ -20,6 +21,9 @@ actually decides whether a system survives: **the validation infrastructure**.
 This repo is that part — the product of ~8 months and 300+ commits of iterating
 on one question: *how do you select trading configurations without fooling
 yourself?*
+
+Its most valuable output turned out to be the word **no** — and the machinery
+that could say it with evidence.
 
 The honest answers we converged on (measured, not assumed — see
 [docs/CASE_STUDY.md](docs/CASE_STUDY.md)):
@@ -116,13 +120,13 @@ end-to-end demo run. Read it as you would an architecture review: start at
 [docs/STAGES.md](docs/STAGES.md), then dive into the stage that interests you
 — the code is heavily commented with the *why*, not just the *what*.
 
-**Project status (2026-08): paused, live bot stopped — deliberately.** After
+**Project status (2026-08): concluded — live bot stopped, deliberately.** After
 the search-artifact finding and a final signal-base rebuild campaign (case
 study, chapters 8–9), the honest tally was: one durable improvement, many
 well-earned rejections, and no layer left where in-sample strength survived
-an independent judge. We stopped pushing rather than lowering the bar. The
-machinery is exactly as valuable as before — arguably more, since its main
-product turned out to be *verified no's*.
+an independent judge. We stopped pushing rather than lowering the bar — with
+the ledger clean, before the illusion reached live capital. The machinery is
+exactly as valuable as before, and stays here as a reference architecture.
 
 ## A short history
 
@@ -145,7 +149,7 @@ Eight months, 300+ commits, one live system:
   inventories, time-scaled cross-scans, design races, Pareto-frontier
   candidate selection — judged by a clean year, then re-judged by a second
   independent year. One of five survivors carried; the bot was stopped and
-  the project paused with its ledger clean and a reserve of unseen data
+  the project concluded with its ledger clean and a reserve of unseen data
   intact.
 
 ## License
